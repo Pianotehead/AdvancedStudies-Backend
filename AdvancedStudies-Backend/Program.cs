@@ -16,7 +16,10 @@ builder.Services.AddDbContext<ApplicationContext>(
     options => options.UseSqlServer("name=ConnectionStrings:DefaultConnection"));
 builder.Services.AddCors();
 
-builder.Services.AddIdentityCore<User>()
+builder.Services.AddIdentityCore<User>(options =>
+    {
+        options.User.RequireUniqueEmail = true;
+    })
     .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<ApplicationContext>();
 
