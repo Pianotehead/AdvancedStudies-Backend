@@ -39,7 +39,8 @@ namespace AdvancedStudies_Backend.Services
                 issuer: null,
                 audience: null,
                 claims: claims,
-                expires: DateTime.Now.AddDays(7)
+                expires: DateTime.Now.AddDays(7),
+                signingCredentials: creds
             );
 
             return new JwtSecurityTokenHandler().WriteToken(tokenOptions);

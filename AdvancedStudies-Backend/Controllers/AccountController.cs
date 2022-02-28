@@ -58,11 +58,11 @@ namespace AdvancedStudies_Backend.Controllers
             return StatusCode(201);
         }
 
-        //[Authorize]
+        [Authorize]
         [HttpGet("currentUser")]
         public async Task<ActionResult<UserDto>> GetCurrentUser()
         {
-            var user = await _userManager.FindByNameAsync(User.Identity.Name);
+            var user = await _userManager.FindByNameAsync(User.Identity?.Name);
             if (user == null) return NotFound();
             return new UserDto
             {
