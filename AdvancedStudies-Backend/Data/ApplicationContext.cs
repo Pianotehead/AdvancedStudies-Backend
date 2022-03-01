@@ -12,6 +12,8 @@ namespace AdvancedStudies_Backend.Data
 
         }
 
+        public DbSet<Course> Course { get; set; }
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
