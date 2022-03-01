@@ -24,7 +24,7 @@ namespace AdvancedStudies_Backend.Controllers
         [HttpPost("login")]
         public async Task<ActionResult<UserDto>> Login(LoginDto loginDto)
         {
-            var user = await _userManager.FindByNameAsync(loginDto.UserName);
+            var user = await _userManager.FindByNameAsync(loginDto.Email);
             if (user == null || !await _userManager.CheckPasswordAsync(user, loginDto.Password))
                 return Unauthorized();
             return new UserDto
@@ -39,7 +39,9 @@ namespace AdvancedStudies_Backend.Controllers
         {
             var user = new User
             {
-                UserName = registerDto.UserName,
+                FirstName = registerDto.FirstName,
+                LastName = registerDto.LastName,
+                UserName = registerDto.Email,
                 Email = registerDto.Email
             };
             var result = await _userManager.CreateAsync(user, registerDto.Password);

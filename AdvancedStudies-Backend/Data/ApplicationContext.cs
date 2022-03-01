@@ -19,7 +19,8 @@ namespace AdvancedStudies_Backend.Data
             builder.Entity<IdentityRole>()
                 .HasData(
                     new IdentityRole { Name = "Student", NormalizedName = "STUDENT" },
-                    new IdentityRole { Name = "Admin", NormalizedName = "ADMIN" }
+                    new IdentityRole { Name = "Admin", NormalizedName = "ADMIN" },
+                    new IdentityRole { Name = "Teacher", NormalizedName = "TEACHER" }
                 );
 
         }
