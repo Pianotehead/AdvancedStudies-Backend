@@ -20,6 +20,6 @@ namespace AdvancedStudies_Backend.Models.Domain
         public int Price { get; set; }
         public string ImageUrl { get; set; }
         public string UrlSlug { get; set; }
-        public DateTime? CreatedAt { get; set; }
+        public DateTime? PublishedAt { get; set; }
     }
 }
