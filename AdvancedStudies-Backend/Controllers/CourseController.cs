@@ -91,5 +91,20 @@ namespace AdvancedStudies_Backend.Controllers
 
             return BadRequest(new ProblemDetails { Title = "Problem deleting course" });
         }
+
+        [HttpPut("publish/{urlSlug}")]
+        public async Task<ActionResult> PublishCourse(string urlSlug)
+        {
+            var course = await _context.Course.FirstOrDefaultAsync(c => c.UrlSlug == urlSlug);
+
+            if (course == null) return NotFound();
+
+            course.PublishedAt = DateTime.Now;
+
+            var result = await _context.SaveChangesAsync() > 0;
+            if (!result) return BadRequest(new ProblemDetails { Title = "Problem publishing course" });
+
+            return NoContent();
+        }
     }
 }
