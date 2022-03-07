@@ -52,25 +52,17 @@ namespace AdvancedStudies_Backend.Controllers
             return BadRequest(new ProblemDetails { Title = "Problem creating new course" });
         }
 
-        [HttpPut]
+        [HttpPut("{id}")]
         public async Task<ActionResult> UpdateCourse(UpdateCourseDto updateCourseDto)
         {
             var course = await _context.Course.FindAsync(updateCourseDto.Id);
 
             if (course == null) return NotFound();
 
-            if (updateCourseDto.Title != "" && updateCourseDto.Title != course.Title)
-            {
-                course.Title = updateCourseDto.Title;
-            }
-            if (updateCourseDto.Description != "" && updateCourseDto.Description != course.Description)
-            {
-                course.Description = updateCourseDto.Description;
-            }
-            if (updateCourseDto.Price > 0 && updateCourseDto.Price != updateCourseDto.Price)
-            {
-                course.Price = updateCourseDto.Price;
-            }
+            course.Title = updateCourseDto.Title;
+            course.Description = updateCourseDto.Description;
+            course.Price = updateCourseDto.Price;
+            course.ImageUrl = updateCourseDto.ImageUrl;
 
             var result = await _context.SaveChangesAsync() > 0;
             if (!result) return BadRequest(new ProblemDetails { Title = "Problem updating course" });
