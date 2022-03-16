@@ -2,7 +2,7 @@
   "dependencies": {
     "mssql1": {
       "secretStore": "AzureAppSettings",
-      "resourceId": "/subscriptions/[parameters('subscriptionId')]/resourceGroups/[parameters('resourceGroupName')]/providers/Microsoft.Sql/servers/advancedstudiesdbsrv/databases/AdvancedStudiesDB",
+      "resourceId": "/subscriptions/[parameters('subscriptionId')]/resourceGroups/[parameters('resourceGroupName')]/providers/Microsoft.Sql/servers/advancedstudiesdb/databases/AdvancedStudiesDB",
       "type": "mssql.azure",
       "connectionId": "ConnectionStrings:DefaultConnection"
     }
