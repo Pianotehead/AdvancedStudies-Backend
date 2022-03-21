@@ -41,8 +41,10 @@ namespace AdvancedStudies_Backend.Controllers
         public async Task<ActionResult> CreateCourse(CreateCourseDto createCourseDto)
         {
             Course course = new(
-                createCourseDto.Title, createCourseDto.Description,
-                createCourseDto.Price, createCourseDto.ImageUrl
+                createCourseDto.Title, createCourseDto.SubTitle,
+                createCourseDto.Description, createCourseDto.Price,
+                createCourseDto.ImageUrl, createCourseDto.WelcomeMessage,
+                createCourseDto.CongratulationsMessage
             );
             await _context.AddAsync(course);
 
