@@ -1,4 +1,5 @@
 ﻿using AdvancedStudies_Backend.Data;
+using AdvancedStudies_Backend.Extensions;
 using AdvancedStudies_Backend.Models.Domain;
 using AdvancedStudies_Backend.Models.DTO;
 using Microsoft.AspNetCore.Authorization;
@@ -18,7 +19,6 @@ namespace AdvancedStudies_Backend.Controllers
         {
             _context = context;
         }
-        [Authorize]
         [HttpGet]
         public async Task<ActionResult<List<Course>>> GetCourses()
         {
@@ -36,6 +36,14 @@ namespace AdvancedStudies_Backend.Controllers
             var course = await _context.Course.FindAsync(id);
             if (course == null) return NotFound();
             return course;
+        }
+
+        [HttpGet("searchresults")]
+        public async Task<ActionResult<List<Course>>> SearchForCourses(string searchTerm)
+        {
+            var query = _context.Course.Search(searchTerm).AsQueryable();
+
+            return await query.ToListAsync();
         }
 
         [HttpPost]
