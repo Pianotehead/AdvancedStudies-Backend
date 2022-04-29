@@ -30,10 +30,10 @@ namespace AdvancedStudies_Backend.Controllers
             return Ok(courses);
         }
 
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Course>> GetCourse(int id)
+        [HttpGet("{urlSlug}")]
+        public async Task<ActionResult<Course>> GetCourse(string urlSlug)
         {
-            var course = await _context.Course.FindAsync(id);
+            var course = await _context.Course.FirstOrDefaultAsync(c => c.UrlSlug == urlSlug);
             if (course == null) return NotFound();
             return course;
         }
