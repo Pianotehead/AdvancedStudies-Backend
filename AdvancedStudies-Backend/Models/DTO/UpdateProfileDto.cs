@@ -1,11 +1,10 @@
 ﻿namespace AdvancedStudies_Backend.Models.DTO
 {
-    public class RegisterDto
+    public class UpdateProfileDto
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Email { get; set; }
-        public string Password { get; set; }
         public bool ReceiveEmails { get; set; }
         public string? CurentAddress { get; set; }
         public string? PhoneNumber { get; set; }
@@ -17,6 +16,5 @@
         public string? LinkedinLink { get; set; }
         public string? Experience { get; set; }
         public string? Education { get; set; }
-
     }
 }

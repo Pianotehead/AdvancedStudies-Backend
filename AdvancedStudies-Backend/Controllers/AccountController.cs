@@ -1,4 +1,5 @@
-﻿using AdvancedStudies_Backend.Models.Domain;
+﻿using AdvancedStudies_Backend.Data;
+using AdvancedStudies_Backend.Models.Domain;
 using AdvancedStudies_Backend.Models.DTO;
 using AdvancedStudies_Backend.Services;
 using Microsoft.AspNetCore.Authorization;
@@ -14,11 +15,13 @@ namespace AdvancedStudies_Backend.Controllers
     {
         private readonly UserManager<User> _userManager;
         private readonly TokenService _tokenService;
+        private readonly ApplicationContext _context;
 
-        public AccountController(UserManager<User> userManager, TokenService tokenService)
+        public AccountController(UserManager<User> userManager, TokenService tokenService, ApplicationContext context)
         {
             _userManager = userManager;
             _tokenService = tokenService;
+            _context = context;
         }
 
         [HttpPost("login")]
@@ -58,6 +61,32 @@ namespace AdvancedStudies_Backend.Controllers
             await _userManager.AddToRoleAsync(user, "Student");
             
             return StatusCode(201);
+        }
+        [HttpPut("currentUser")]
+        public async Task<ActionResult> UpdateProfile(UpdateProfileDto updateProfileDto)
+        {
+            var existingUser = await _userManager.FindByEmailAsync(updateProfileDto.Email);
+
+            if (existingUser == null) return NotFound();
+
+            existingUser.FirstName = updateProfileDto.FirstName;
+            existingUser.LastName = updateProfileDto.LastName;
+            existingUser.ReceiveEmails = updateProfileDto.ReceiveEmails;
+            existingUser.CurrentAddress = updateProfileDto.CurentAddress;
+            existingUser.PhoneNumber = updateProfileDto.PhoneNumber;
+            existingUser.Gender = updateProfileDto.Gender;
+            existingUser.About = updateProfileDto.About;
+            existingUser.WebsiteLink = updateProfileDto.WebsiteLink;
+            existingUser.TwitterLink = updateProfileDto.TwitterLink;
+            existingUser.FacebookLink = updateProfileDto.FacebookLink;
+            existingUser.LinkedinLink = updateProfileDto.LinkedinLink;
+            existingUser.Experience = updateProfileDto.Experience;
+            existingUser.Education = updateProfileDto.Education;
+
+            var result = await _context.SaveChangesAsync() > 0;
+            if (!result) return BadRequest(new ProblemDetails { Title = "Problem updating user" });
+
+            return NoContent();
         }
 
         [Authorize]
